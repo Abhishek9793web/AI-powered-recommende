@@ -1,0 +1,10 @@
+{
+    "explorer.compactFolders": true,
+    "workbench.editor.enablePreview": true,
+    "explorer.confirmDelete": true,
+    "explorer.confirmDragAndDrop": true,
+    "explorer.sortOrder": "default",
+    "explorer.fileNesting.enabled": true,
+    "editor.suggest.showFolders": false,
+    "scm.compactFolders": false
+}
