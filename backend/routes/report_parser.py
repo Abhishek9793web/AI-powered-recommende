@@ -5,7 +5,7 @@ report_parser = Blueprint('report_parser', __name__)
 
 @report_parser.route('/parse-report', methods=['POST'])
 def parse_report():
-    data = request.json
+    data = request.get_json()
     text = data.get('report_text', '')
     if not text:
         return jsonify({"error": "No report text provided"}), 400

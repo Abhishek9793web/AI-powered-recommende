@@ -4,7 +4,7 @@ from datetime import datetime
 # Define keywords
 ANTIBODY_PATTERN = r"Anti-[A-Za-z]+"
 REACTIONS = ["Febrile", "Hemolytic", "Urticarial", "Allergic", "Anaphylactic"]
-BLOOD_TYPE_PATTERN = r"\b(A|B|AB|O)[+-]\b"
+BLOOD_TYPE_PATTERN = r"\b(?:A|B|AB|O)[+-]"
 DATE_PATTERN = r"\b(?:\d{1,2}[-/ ](?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*[-/ ]\d{2,4}|\d{4}-\d{2}-\d{2})\b"
 
 def extract_antibodies(text):
@@ -19,6 +19,7 @@ def extract_dates(text):
 def extract_blood_type(text):
     match = re.search(BLOOD_TYPE_PATTERN, text)
     return match.group() if match else None
+
 
 def parse_transfusion_report(text):
     return {
