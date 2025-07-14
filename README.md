@@ -128,7 +128,7 @@ MIT License (for open-source development)
 
 ## 🙌 Contributors  
 **Abhishek Goswami**  
-(Your team members can be added here later)
+
 
 ---
 
