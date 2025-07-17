@@ -2,8 +2,12 @@ def compute_match_score(patient, unit):
     score = 0
 
     # Exact blood type match (+1)
+
     if patient['blood_type'] == unit['blood_type']:
         score += 1
+
+    if isinstance(patient, list):
+        patient = patient[0]  # TEMP workaround, optional    
 
     # Check for antibody conflicts (hard penalty if conflict)
     unit_antigens = set(unit.get('minor_antigens', []))
@@ -24,3 +28,6 @@ def compute_match_score(patient, unit):
         score += 1
 
     return score
+    
+ 
+

@@ -13,5 +13,10 @@ def recommend_units():
     if not patient or not donors:
         return jsonify({"error": "Missing patient or donor data"}), 400
 
-    recommendations = compute_match_score(patient, donors)
-    return jsonify({"recommendations": recommendations})
+    # Compute match scores for all donors
+    matches = []
+    for donor in donors:
+         score = compute_match_score(patient, donor)
+         matches.append({"donor": donor, "score": score})
+    top_matches = sorted(matches, key=lambda x: x["score"], reverse=True)[:5]
+    return jsonify({"recommendations": top_matches})

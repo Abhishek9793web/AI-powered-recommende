@@ -6,8 +6,18 @@ from flask_cors import CORS
 from nlp.extract_info import parse_transfusion_report
 from services.matcher import compute_match_score
 
+
+from routes.patient_routes import patient_routes
+from routes.donor_routes import donor_routes
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend
+
+
+
+
+app.register_blueprint(patient_routes)
+app.register_blueprint(donor_routes)
 
 # === Route: Home ===
 @app.route('/')
@@ -35,7 +45,13 @@ def recommend_units():
     if not patient or not donors:
         return jsonify({"error": "Patient or donor data missing"}), 400
 
-    top_matches = compute_match_score(patient, donors)
+    matches = []
+    for donor in donors:
+        score = compute_match_score(patient, donor)
+        matches.append({"donor": donor, "score": score})
+
+    # Sort by score descending and take top 5
+    top_matches = sorted(matches, key=lambda x: x["score"], reverse=True)[:5]
     return jsonify({"recommendations": top_matches})
 
 # === Main Runner ===
